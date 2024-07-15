@@ -20,3 +20,9 @@
   opacity: 0.3;
   background-image: url('/src/assets/bg.png');
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
