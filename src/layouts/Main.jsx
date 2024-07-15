@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
+import Banner from "../components/Banner";
 
 const Main = () => {
   return (
     <div>
-      <h2>This is Main Page</h2>
+      <Banner />
       <Outlet />
     </div>
   );

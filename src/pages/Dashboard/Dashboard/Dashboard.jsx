@@ -1,10 +1,10 @@
-import Banner from "../../../components/Banner";
+// import Banner from "../../../components/Banner";
 import Users from "../Users/Users";
 
 const Dashboard = () => {
   return (
     <div>
-      <Banner />
+      {/* <Banner /> */}
       <Users />
     </div>
   );
