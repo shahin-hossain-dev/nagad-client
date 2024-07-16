@@ -4,14 +4,17 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { MdLock } from "react-icons/md";
 import { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
+import { MdOutlineEmail } from "react-icons/md";
+import axios from "axios";
 const Register = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
-    const userId = form.userId.value;
+    const email = form.email.value;
+    const number = form.number.value;
     const pin = form.pin.value;
 
     if (pin.length !== 5) {
@@ -19,11 +22,18 @@ const Register = () => {
     }
 
     const user = {
-      userId,
+      name,
+      email,
+      number,
       pin,
     };
 
-    navigate("/");
+    try {
+      const res = await axios.post("http://localhost:3000/register", user);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -46,27 +56,40 @@ const Register = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="userId">
+            <label htmlFor="email">
+              <MdOutlineEmail className="inline me-2 text-[#1ba557]" />
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="your email"
+              className="outline-0 border-b border-gray-800 "
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="number">
               <FaPhoneAlt className="inline me-2 text-[#1ba557]" />
             </label>
             <input
-              type="text"
-              name="userId"
-              id="userId"
-              placeholder="mobile or email"
+              type="number"
+              name="number"
+              id="number"
+              placeholder="your mobile number"
               className="outline-0 border-b border-gray-800 "
               required
             />
           </div>
 
           <div>
-            <label htmlFor="password">
+            <label htmlFor="pin">
               <MdLock className="inline me-2 text-[#1ba557]" />
             </label>
             <input
               type="password"
               name="pin"
-              id="number"
+              id="pin"
               placeholder="PIN"
               className="outline-0 border-b border-gray-800 "
               required
