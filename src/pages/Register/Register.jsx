@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import axios from "axios";
+import { FaUserCheck } from "react-icons/fa6";
 const Register = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Register = () => {
     const email = form.email.value;
     const number = form.number.value;
     const pin = form.pin.value;
+    const acType = form.acType.value;
 
     if (pin.length !== 5) {
       return setError("PIN should be 5 character");
@@ -26,11 +28,15 @@ const Register = () => {
       email,
       number,
       pin,
+      acType,
     };
 
     try {
       const res = await axios.post("http://localhost:3000/register", user);
-      console.log(res.data);
+      // console.log(res.data);
+      if (res.data.insertedId) {
+        console.log("user create successfully");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +48,7 @@ const Register = () => {
           <LoginBanner />
         </div>
         <form onSubmit={handleRegister}>
-          <div className="mb-3">
+          <div className="mb-3 flex items-center">
             <label htmlFor="name">
               <FaRegUser className="inline me-2 text-[#1ba557]" />
             </label>
@@ -51,11 +57,11 @@ const Register = () => {
               name="name"
               id="name"
               placeholder="Full Name"
-              className="outline-0 border-b border-gray-800 "
+              className="outline-0 border-b border-gray-800 w-full"
               required
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-3 flex items-center">
             <label htmlFor="email">
               <MdOutlineEmail className="inline me-2 text-[#1ba557]" />
             </label>
@@ -64,11 +70,11 @@ const Register = () => {
               name="email"
               id="email"
               placeholder="your email"
-              className="outline-0 border-b border-gray-800 "
+              className="outline-0 border-b border-gray-800 w-full"
               required
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-3 flex items-center">
             <label htmlFor="number">
               <FaPhoneAlt className="inline me-2 text-[#1ba557]" />
             </label>
@@ -77,12 +83,26 @@ const Register = () => {
               name="number"
               id="number"
               placeholder="your mobile number"
-              className="outline-0 border-b border-gray-800 "
+              className="outline-0 border-b border-gray-800 w-full "
               required
             />
           </div>
+          <div className="flex items-center mb-3">
+            <FaUserCheck className=" me-2 text-[#1ba557]" />
+            <select
+              defaultValue={"select one"}
+              name="acType"
+              className="outline-0 border-b border-gray-800 w-full "
+            >
+              <option disabled value={"select one"}>
+                Select One
+              </option>
+              <option value="user">User</option>
+              <option value="agent">Agent</option>
+            </select>
+          </div>
 
-          <div>
+          <div className="flex items-center">
             <label htmlFor="pin">
               <MdLock className="inline me-2 text-[#1ba557]" />
             </label>
@@ -91,7 +111,7 @@ const Register = () => {
               name="pin"
               id="pin"
               placeholder="PIN"
-              className="outline-0 border-b border-gray-800 "
+              className="outline-0 border-b border-gray-800 w-full"
               required
             />
           </div>

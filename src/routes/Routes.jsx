@@ -4,15 +4,25 @@ import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import PendingUser from "../pages/PendingUser/PendingUser";
+import Admin from "../pages/Dashboard/Admin/Admin";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main />,
+    element: (
+      <PrivateRoute>
+        <Main />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/",
-        element: <Dashboard />,
+        element: (
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -27,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "pending",
     element: <PendingUser />,
+  },
+  {
+    path: "user-approval",
+    element: <Admin />,
   },
 ]);
 
