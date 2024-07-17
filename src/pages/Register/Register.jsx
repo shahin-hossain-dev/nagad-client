@@ -36,9 +36,11 @@ const Register = () => {
       // console.log(res.data);
       if (res.data.insertedId) {
         console.log("user create successfully");
+        navigate("/login");
       }
     } catch (error) {
       console.log(error);
+      setError("something wrong");
     }
   };
   return (
